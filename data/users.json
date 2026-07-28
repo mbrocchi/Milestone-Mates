@@ -1,0 +1,14 @@
+{
+  "sarah": {
+    "id": "sarah",
+    "name": "Sarah",
+    "role": "BACK HOME",
+    "avatar": "sun"
+  },
+  "dave": {
+    "id": "dave",
+    "name": "Dave",
+    "role": "FIFO CAMP",
+    "avatar": "hardhat"
+  }
+}
