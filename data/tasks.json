@@ -50,5 +50,19 @@
     "title": "Test",
     "category": "Home",
     "completed": true
+  },
+  {
+    "id": 1785277952776,
+    "assignee": "sarah",
+    "title": "get Fit",
+    "category": "Fitness",
+    "completed": true
+  },
+  {
+    "id": 1785277967366,
+    "assignee": "sarah",
+    "title": "Lose weight",
+    "category": "Fitness",
+    "completed": true
   }
 ]

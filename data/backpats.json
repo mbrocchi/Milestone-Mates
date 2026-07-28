@@ -1,5 +1,21 @@
 [
   {
+    "id": 1785276800695,
+    "from": "system",
+    "to": "everyone",
+    "type": "Goal Update",
+    "message": "The shared family goal was updated to 'Family Holiday'!",
+    "timestamp": "2026-07-28T22:13:20.695Z"
+  },
+  {
+    "id": 1785276785400,
+    "from": "system",
+    "to": "everyone",
+    "type": "Goal Update",
+    "message": "The shared family goal was updated to 'Family Holidaytttt'!",
+    "timestamp": "2026-07-28T22:13:05.400Z"
+  },
+  {
     "id": 1785275799470,
     "from": "system",
     "to": "everyone",

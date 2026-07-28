@@ -4,9 +4,9 @@ import { X } from 'lucide-react';
 
 //const API_URL = 'http://localhost:3001/api';
 const API_URL = '/api';
-export default function CreateTaskModal({ activeGoal, onClose, onSave }) {
+export default function CreateTaskModal({ activeGoal, defaultAssignee = 'sarah', onClose, onSave }) {
   const [title, setTitle] = useState('');
-  const [assignee, setAssignee] = useState('sarah');
+  const [assignee, setAssignee] = useState(defaultAssignee);
   const [category, setCategory] = useState('Home');
   const [contributionValue, setContributionValue] = useState(5);
 

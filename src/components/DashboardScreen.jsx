@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import CreateTaskModal from './CreateTaskModal';
 import SendBackpatModal from './SendBackpatModal';
 import EditGoalModal from './EditGoalModal';
+import UserTasksModal from './UserTasksModal';
 
 //const API_URL = 'http://localhost:3001/api';
 const API_URL = '/api';
@@ -12,8 +13,10 @@ export default function DashboardScreen() {
   const [data, setData] = useState({ users: null, goals: [], tasks: [], backpats: [] });
   const [loading, setLoading] = useState(true);
   const [showTaskModal, setShowTaskModal] = useState(false);
+  const [taskModalAssignee, setTaskModalAssignee] = useState('sarah');
   const [showBackpatModal, setShowBackpatModal] = useState(false);
   const [showEditGoalModal, setShowEditGoalModal] = useState(false);
+  const [selectedUserTasks, setSelectedUserTasks] = useState(null); // 'sarah' or 'dave'
 
   const fetchData = async () => {
     try {
@@ -30,24 +33,8 @@ export default function DashboardScreen() {
     fetchData();
   }, []);
 
-  const handleToggleTask = async (taskId) => {
-    try {
-      const res = await fetch(`${API_URL}/tasks/${taskId}/toggle`, { method: 'PATCH' });
-      const updatedTask = await res.json();
-      
-      if (updatedTask.completed) {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 }
-        });
-      }
-      
-      // Refresh all data to update progress bar and tasks
-      fetchData();
-    } catch (err) {
-      console.error(err);
-    }
+  const openUserTasks = (userId) => {
+    setSelectedUserTasks(userId);
   };
 
   if (loading) return <div className="flex-1 flex items-center justify-center text-white font-bold text-xl">Loading Mates...</div>;
@@ -102,62 +89,44 @@ export default function DashboardScreen() {
         {/* Partners Side by Side */}
         <div className="flex gap-4">
           {/* Sarah */}
-          <div className="flex-1 bg-teal-50 rounded-2xl p-3 border-2 border-brand-teal relative flex flex-col items-center text-center">
+          <div 
+            onClick={() => openUserTasks('sarah')}
+            className="flex-1 bg-teal-50 rounded-2xl p-3 border-2 border-brand-teal cursor-pointer hover:bg-teal-100 hover:shadow-md transition relative flex flex-col items-center text-center"
+          >
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center border-2 border-brand-teal mb-2 shadow-sm text-3xl">
               👩🏽
               <span className="absolute -top-2 -right-2 text-2xl">☀️</span>
             </div>
             <h3 className="font-bold text-gray-800 leading-tight">BACK HOME</h3>
             <p className="text-xs text-gray-500 mb-2">(Sarah)</p>
-            <div className="w-full text-left">
-              {sarahTasks.length > 0 ? (
-                <div 
-                  onClick={() => handleToggleTask(sarahTasks[0].id)}
-                  className="bg-white p-2 rounded-lg border border-teal-200 text-xs font-semibold text-gray-700 cursor-pointer hover:bg-teal-100 transition flex flex-col gap-1 relative"
-                >
-                  <div className="flex items-start gap-1">
-                    <Circle size={14} className="text-brand-teal mt-0.5 shrink-0" />
-                    <span className="leading-tight">{sarahTasks[0].title}</span>
-                  </div>
-                  {sarahTasks[0].category === "Family Shared Goal" && (
-                    <div className="self-start bg-orange-100 text-brand-orange-dark text-[10px] font-bold px-1.5 py-0.5 rounded ml-4 flex items-center gap-1">
-                      🎯 +{sarahTasks[0].contributionValue || 5}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="text-xs text-gray-400 italic text-center">All caught up!</div>
-              )}
+            <div className="w-full mt-auto">
+              <div className="bg-white p-2 rounded-lg border border-teal-200 flex items-center justify-between shadow-sm">
+                <span className="text-xs font-bold text-brand-teal">
+                  📋 {sarahTasks.length} Active Tasks
+                </span>
+                <Plus size={16} className="text-brand-teal" />
+              </div>
             </div>
           </div>
 
           {/* Dave */}
-          <div className="flex-1 bg-orange-50 rounded-2xl p-3 border-2 border-brand-orange relative flex flex-col items-center text-center">
+          <div 
+            onClick={() => openUserTasks('dave')}
+            className="flex-1 bg-orange-50 rounded-2xl p-3 border-2 border-brand-orange cursor-pointer hover:bg-orange-100 hover:shadow-md transition relative flex flex-col items-center text-center"
+          >
             <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center border-2 border-brand-orange mb-2 shadow-sm text-3xl">
               👨🏾
               <span className="absolute -top-2 -right-2 text-2xl">👷‍♂️</span>
             </div>
             <h3 className="font-bold text-gray-800 leading-tight">FIFO CAMP</h3>
             <p className="text-xs text-gray-500 mb-2">(Dave)</p>
-            <div className="w-full text-left">
-              {daveTasks.length > 0 ? (
-                <div 
-                  onClick={() => handleToggleTask(daveTasks[0].id)}
-                  className="bg-white p-2 rounded-lg border border-orange-200 text-xs font-semibold text-gray-700 cursor-pointer hover:bg-orange-100 transition flex flex-col gap-1 relative"
-                >
-                  <div className="flex items-start gap-1">
-                    <Circle size={14} className="text-brand-orange mt-0.5 shrink-0" />
-                    <span className="leading-tight">{daveTasks[0].title}</span>
-                  </div>
-                  {daveTasks[0].category === "Family Shared Goal" && (
-                    <div className="self-start bg-teal-100 text-brand-teal-dark text-[10px] font-bold px-1.5 py-0.5 rounded ml-4 flex items-center gap-1">
-                      🎯 +{daveTasks[0].contributionValue || 5}
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="text-xs text-gray-400 italic text-center">All caught up!</div>
-              )}
+            <div className="w-full mt-auto">
+              <div className="bg-white p-2 rounded-lg border border-orange-200 flex items-center justify-between shadow-sm">
+                <span className="text-xs font-bold text-brand-orange">
+                  📋 {daveTasks.length} Active Tasks
+                </span>
+                <Plus size={16} className="text-brand-orange" />
+              </div>
             </div>
           </div>
         </div>
@@ -166,7 +135,7 @@ export default function DashboardScreen() {
         <div className="flex-1 flex flex-col min-h-[150px]">
           <div className="flex items-center justify-between mb-3 shrink-0">
             <h3 className="font-bold text-gray-700">Recent Cheers & Activity</h3>
-            <button onClick={() => setShowTaskModal(true)} className="text-brand-teal bg-teal-50 p-1.5 rounded-full hover:bg-teal-100 transition">
+            <button onClick={() => { setTaskModalAssignee('sarah'); setShowTaskModal(true); }} className="text-brand-teal bg-teal-50 p-1.5 rounded-full hover:bg-teal-100 transition">
               <Plus size={20} />
             </button>
           </div>
@@ -202,6 +171,20 @@ export default function DashboardScreen() {
 
       {/* Modals */}
       <AnimatePresence>
+        {selectedUserTasks && users && (
+          <UserTasksModal
+            user={users[selectedUserTasks]}
+            activeGoal={activeGoal}
+            tasks={tasks}
+            onClose={() => setSelectedUserTasks(null)}
+            onTaskToggle={fetchData}
+            onAddTask={() => {
+              setTaskModalAssignee(selectedUserTasks);
+              setSelectedUserTasks(null);
+              setShowTaskModal(true);
+            }}
+          />
+        )}
         {showEditGoalModal && (
           <EditGoalModal
             activeGoal={activeGoal}
@@ -215,6 +198,7 @@ export default function DashboardScreen() {
         {showTaskModal && (
           <CreateTaskModal
             activeGoal={activeGoal}
+            defaultAssignee={taskModalAssignee}
             onClose={() => setShowTaskModal(false)} 
             onSave={() => {
               setShowTaskModal(false);
