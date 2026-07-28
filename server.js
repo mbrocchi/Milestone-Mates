@@ -11,6 +11,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// Prevent caching for API routes
+app.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store');
+  next();
+});
+
 const dataDir = path.join(__dirname, 'data');
 
 const readJSON = (file) => {
@@ -26,13 +32,16 @@ app.get('/api/dashboard', (req, res) => {
   const users = readJSON('users.json');
   const goals = readJSON('goals.json');
   const tasks = readJSON('tasks.json');
-  const backpats = readJSON('backpats.json');
+  let backpats = readJSON('backpats.json') || [];
+  
+  // Ensure sorted by timestamp descending
+  backpats.sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp));
   
   res.json({
     users,
     goals,
     tasks,
-    backpats: backpats.slice(-10) // latest 10
+    backpats: backpats.slice(0, 50) // Return 50 most recent items
   });
 });
 
@@ -50,6 +59,28 @@ app.post('/api/tasks', (req, res) => {
   }
   tasks.push(newTask);
   writeJSON('tasks.json', tasks);
+  
+  // Log task creation to backpats.json
+  try {
+    const backpats = readJSON('backpats.json') || [];
+    const users = readJSON('users.json') || {};
+    const creatorName = (users[newTask.assignee] && users[newTask.assignee].name) ? users[newTask.assignee].name : newTask.assignee;
+    
+    const newLog = {
+      id: Date.now(),
+      from: creatorName,
+      to: 'family',
+      type: 'Task Created',
+      message: `${creatorName} added a new task: ${newTask.title}`,
+      timestamp: new Date().toISOString()
+    };
+    
+    backpats.unshift(newLog);
+    writeJSON('backpats.json', backpats);
+  } catch(e) {
+    console.error("Error logging task creation:", e);
+  }
+  
   res.json(newTask);
 });
 
@@ -74,6 +105,39 @@ app.patch('/api/tasks/:id/toggle', (req, res) => {
         }
         writeJSON('goals.json', goals);
       }
+    }
+    
+    // Log completion to activity feed
+    try {
+      if (task.completed) {
+        const backpats = readJSON('backpats.json') || [];
+        const users = readJSON('users.json') || {};
+        const goals = readJSON('goals.json') || [];
+        
+        const userName = (users[task.assignee] && users[task.assignee].name) ? users[task.assignee].name : task.assignee;
+        let message = `${userName} completed '${task.title || 'a task'}'!`;
+        
+        if (task.category === "Family Shared Goal" && goals.length > 0) {
+          const activeGoal = goals[0];
+          const contribution = task.contributionValue || 5;
+          message = `${userName} completed '${task.title || 'a task'}' (+${contribution}% to ${activeGoal.title || 'Shared Goal'})!`;
+        }
+        
+        const newBackpat = {
+          id: Date.now(),
+          from: userName,
+          to: 'family',
+          type: 'Task Completed',
+          message: message,
+          timestamp: new Date().toISOString()
+        };
+        
+        console.log('Writing task completion to backpats.json:', newBackpat);
+        backpats.unshift(newBackpat);
+        writeJSON('backpats.json', backpats);
+      }
+    } catch (e) {
+      console.error("Error writing to backpats.json:", e);
     }
     
     res.json(task);

@@ -144,11 +144,15 @@ export default function DashboardScreen() {
             {backpats.map(bp => (
               <div key={bp.id} className="flex gap-3 items-start bg-gray-50 p-3 rounded-xl border border-gray-100">
                 <div className="text-2xl pt-1">
-                  {bp.type === 'Streak' ? '🚀' : '👍'}
+                  {bp.type === 'Streak' ? '🚀' : bp.type === 'Task Completed' ? '✅' : bp.type === 'Task Created' ? '📋' : bp.type === 'Goal Update' ? '🎯' : '👍'}
                 </div>
                 <div>
                   <p className="text-sm text-gray-800 font-medium">
-                    <span className="font-bold capitalize">{bp.from}</span> sent a cheer to <span className="font-bold capitalize">{bp.to}</span>
+                    {bp.from === 'system' || bp.type === 'Task Created' || bp.type === 'Task Completed' ? (
+                      <span className="font-bold text-gray-600">{bp.type}</span>
+                    ) : (
+                      <><span className="font-bold capitalize">{bp.from}</span> sent a cheer to <span className="font-bold capitalize">{bp.to}</span></>
+                    )}
                   </p>
                   <p className="text-xs text-gray-500 mt-0.5 bg-white py-1 px-2 rounded-md border border-gray-200 inline-block">{bp.message}</p>
                 </div>
