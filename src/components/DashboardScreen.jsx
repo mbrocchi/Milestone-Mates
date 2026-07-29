@@ -22,7 +22,13 @@ export default function DashboardScreen() {
     try {
       const res = await fetch(`${API_URL}/dashboard`);
       const json = await res.json();
-      setData(json);
+      setData(prevData => {
+        // Optimize: Update only if data has changed to prevent unnecessary re-renders
+        if (JSON.stringify(prevData) === JSON.stringify(json)) {
+          return prevData;
+        }
+        return json;
+      });
       setLoading(false);
     } catch (err) {
       console.error(err);
@@ -31,6 +37,12 @@ export default function DashboardScreen() {
 
   useEffect(() => {
     fetchData();
+    
+    // Auto-polling for real-time updates every 3 seconds
+    const interval = setInterval(fetchData, 3000);
+    
+    // Cleanup on unmount
+    return () => clearInterval(interval);
   }, []);
 
   const openUserTasks = (userId) => {
