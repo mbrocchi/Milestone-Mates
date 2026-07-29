@@ -49,7 +49,8 @@ export default function DashboardScreen() {
   return (
     <div className="flex-1 flex flex-col relative bg-[#0EB2A1] h-full overflow-hidden">
       {/* Header Banner */}
-      <div className="pt-8 pb-4 px-4 text-center relative overflow-hidden shrink-0">
+      <div className="pt-8 pb-4 px-4 text-center relative overflow-hidden shrink-0 flex flex-col items-center">
+        <img src="/logo.png" alt="Milestone Mates Logo" className="w-16 h-auto drop-shadow-md mb-2 z-10 relative" />
         <h1 className="text-3xl font-black text-white drop-shadow-md tracking-wide z-10 relative" style={{ WebkitTextStroke: '1px #FF8800' }}>
           MILESTONEMATES
         </h1>

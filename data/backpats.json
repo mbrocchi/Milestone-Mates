@@ -1,42 +1,26 @@
 [
   {
-    "id": 1785281630631,
-    "from": "sarah",
-    "to": "dave",
-    "type": "Great Effort!",
-    "message": "Well done on the workout!",
-    "timestamp": "2026-07-28T23:33:50.631Z"
-  },
-  {
-    "id": 1785281616510,
-    "from": "Dave",
-    "to": "family",
-    "type": "Task Completed",
-    "message": "Dave completed 'workout'!",
-    "timestamp": "2026-07-28T23:33:36.510Z"
-  },
-  {
-    "id": 1785281606573,
-    "from": "Dave",
-    "to": "family",
-    "type": "Task Created",
-    "message": "Dave added a new task: workout",
-    "timestamp": "2026-07-28T23:33:26.573Z"
-  },
-  {
-    "id": 1785281559363,
+    "id": 1785283699049,
     "from": "sarah",
     "to": "dave",
     "type": "Great Effort!",
     "message": "test",
-    "timestamp": "2026-07-28T23:32:39.363Z"
+    "timestamp": "2026-07-29T00:08:19.049Z"
   },
   {
-    "id": 1785281529369,
+    "id": 1785283587356,
+    "from": "sarah",
+    "to": "dave",
+    "type": "Crushing It!",
+    "message": "Good luck on the bathroom",
+    "timestamp": "2026-07-29T00:06:27.356Z"
+  },
+  {
+    "id": 1785283515277,
     "from": "Sarah",
     "to": "family",
-    "type": "Task Completed",
-    "message": "Sarah completed 'test'!",
-    "timestamp": "2026-07-28T23:32:09.369Z"
+    "type": "Task Created",
+    "message": "Sarah added a new task: Paint bathroom fixures",
+    "timestamp": "2026-07-29T00:05:15.277Z"
   }
 ]
