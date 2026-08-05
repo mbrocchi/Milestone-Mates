@@ -154,23 +154,55 @@ export default function DashboardScreen() {
           </div>
           
           <div className="flex-1 overflow-y-auto max-h-52 pr-1 flex flex-col gap-3">
-            {backpats.map(bp => (
-              <div key={bp.id} className="flex gap-3 items-start bg-gray-50 p-3 rounded-xl border border-gray-100">
-                <div className="text-2xl pt-1">
-                  {bp.type === 'Streak' ? '🚀' : bp.type === 'Task Completed' ? '✅' : bp.type === 'Task Created' ? '📋' : bp.type === 'Goal Update' ? '🎯' : '👍'}
-                </div>
-                <div>
-                  <p className="text-sm text-gray-800 font-medium">
-                    {bp.from === 'system' || bp.type === 'Task Created' || bp.type === 'Task Completed' ? (
-                      <span className="font-bold text-gray-600">{bp.type}</span>
-                    ) : (
-                      <><span className="font-bold capitalize">{bp.from}</span> sent a cheer to <span className="font-bold capitalize">{bp.to}</span></>
+            {backpats.map(bp => {
+              const fromLower = (bp.from || '').toLowerCase();
+              const isSarah = fromLower === 'sarah';
+              const isDave = fromLower === 'dave';
+              const isSystem = fromLower === 'system';
+              
+              const borderClass = isSarah 
+                ? 'border-brand-teal bg-teal-50/50' 
+                : isDave 
+                ? 'border-brand-orange bg-orange-50/50' 
+                : 'border-gray-200 bg-gray-50';
+                
+              const avatar = isSarah ? '👩🏽' : isDave ? '👨🏾' : '🤖';
+              const roleIcon = isSarah ? '☀️' : isDave ? '👷‍♂️' : null;
+
+              return (
+                <div key={bp.id} className={`flex gap-3 items-start p-3 rounded-xl border-2 transition ${borderClass}`}>
+                  <div className="relative shrink-0">
+                    <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center border shadow-sm text-xl">
+                      {avatar}
+                    </div>
+                    {roleIcon && (
+                      <span className="absolute -top-1 -right-1 text-xs bg-white rounded-full p-0.5 shadow-sm border border-gray-100">
+                        {roleIcon}
+                      </span>
                     )}
-                  </p>
-                  <p className="text-xs text-gray-500 mt-0.5 bg-white py-1 px-2 rounded-md border border-gray-200 inline-block">{bp.message}</p>
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="text-xs font-bold text-gray-800">
+                        {isSystem ? (
+                          <span className="text-gray-500 font-extrabold uppercase tracking-wide">{bp.type}</span>
+                        ) : (
+                          <span>
+                            <span className="capitalize">{bp.from}</span> sent a {bp.type === 'Task Created' || bp.type === 'Task Completed' ? 'update' : 'cheer'}
+                          </span>
+                        )}
+                      </p>
+                      <span className="text-lg">
+                        {bp.type === 'Streak' ? '🚀' : bp.type === 'Task Completed' ? '✅' : bp.type === 'Task Created' ? '📋' : bp.type === 'Goal Update' ? '🎯' : '👍'}
+                      </span>
+                    </div>
+                    <p className="text-xs text-gray-600 mt-1 font-medium bg-white/80 py-1.5 px-2 rounded-lg border border-gray-100 inline-block leading-tight">
+                      {bp.message}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

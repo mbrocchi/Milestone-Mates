@@ -1,10 +1,74 @@
 [
   {
-    "id": 1785284188357,
+    "id": 1785391148008,
+    "from": "dave",
+    "to": "sarah",
+    "type": "Miss You!",
+    "message": "Thats so great.. Lets get a porche\n",
+    "timestamp": "2026-07-30T05:59:08.008Z"
+  },
+  {
+    "id": 1785391108187,
     "from": "Sarah",
     "to": "family",
     "type": "Task Completed",
-    "message": "Sarah completed 'Paint bathroom fixures'!",
-    "timestamp": "2026-07-29T00:16:28.357Z"
+    "message": "Sarah completed 'Do some research on good family cars.' (+5% to New Car)!",
+    "timestamp": "2026-07-30T05:58:28.187Z"
+  },
+  {
+    "id": 1785391092449,
+    "from": "Sarah",
+    "to": "family",
+    "type": "Task Created",
+    "message": "Sarah added a new task: Do some research on good family cars.",
+    "timestamp": "2026-07-30T05:58:12.449Z"
+  },
+  {
+    "id": 1785391047298,
+    "from": "dave",
+    "to": "sarah",
+    "type": "Crushing It!",
+    "message": "Hey Sarah!!! Awesome work on the house! Love it!1",
+    "timestamp": "2026-07-30T05:57:27.298Z"
+  },
+  {
+    "id": 1785391019589,
+    "from": "Sarah",
+    "to": "family",
+    "type": "Task Completed",
+    "message": "Sarah completed 'Tidy the house'!",
+    "timestamp": "2026-07-30T05:56:59.589Z"
+  },
+  {
+    "id": 1785391011387,
+    "from": "Dave",
+    "to": "family",
+    "type": "Task Created",
+    "message": "Dave added a new task: Pay Phone Bills",
+    "timestamp": "2026-07-30T05:56:51.387Z"
+  },
+  {
+    "id": 1785390968121,
+    "from": "Sarah",
+    "to": "family",
+    "type": "Task Created",
+    "message": "Sarah added a new task: Daily Workout",
+    "timestamp": "2026-07-30T05:56:08.121Z"
+  },
+  {
+    "id": 1785390946678,
+    "from": "Sarah",
+    "to": "family",
+    "type": "Task Created",
+    "message": "Sarah added a new task: Tidy the house",
+    "timestamp": "2026-07-30T05:55:46.678Z"
+  },
+  {
+    "id": 1785390922977,
+    "from": "system",
+    "to": "everyone",
+    "type": "Goal Update",
+    "message": "The shared family goal was updated to 'New Car'!",
+    "timestamp": "2026-07-30T05:55:22.977Z"
   }
 ]

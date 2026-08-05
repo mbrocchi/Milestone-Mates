@@ -6,22 +6,31 @@ import confetti from 'canvas-confetti';
 //const API_URL = 'http://localhost:3001/api';
 const API_URL = '/api';
 export default function SendBackpatModal({ onClose, onSave }) {
+  const [sender, setSender] = useState(() => {
+    return localStorage.getItem('preferred_sender') || 'sarah';
+  });
   const [type, setType] = useState('Great Effort!');
   const [message, setMessage] = useState('');
 
   const types = ['Great Effort!', 'Crushing It!', 'Miss You!', 'Streak Master!'];
+
+  const handleSenderChange = (val) => {
+    setSender(val);
+    localStorage.setItem('preferred_sender', val);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!message.trim()) return;
 
     try {
+      const recipient = sender === 'sarah' ? 'dave' : 'sarah';
       await fetch(`${API_URL}/backpats`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-          from: 'sarah', 
-          to: 'dave', 
+          from: sender, 
+          to: recipient, 
           type, 
           message 
         })
@@ -80,6 +89,26 @@ export default function SendBackpatModal({ onClose, onSave }) {
 
           <form onSubmit={handleSubmit} className="flex-1 overflow-y-auto flex flex-col gap-5 pb-2">
             
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">Who is sending this cheer?</label>
+              <div className="flex gap-4 mb-2">
+                <button
+                  type="button"
+                  onClick={() => handleSenderChange('sarah')}
+                  className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-2xl border-4 font-bold transition ${sender === 'sarah' ? 'border-brand-teal bg-teal-50 text-brand-teal' : 'border-gray-100 bg-gray-50 text-gray-500'}`}
+                >
+                  <span className="text-2xl">👩🏽</span> Sarah (Home)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleSenderChange('dave')}
+                  className={`flex-1 flex items-center justify-center gap-2 p-3 rounded-2xl border-4 font-bold transition ${sender === 'dave' ? 'border-brand-orange bg-orange-50 text-brand-orange' : 'border-gray-100 bg-gray-50 text-gray-500'}`}
+                >
+                  <span className="text-2xl">👨🏾</span> Dave (FIFO)
+                </button>
+              </div>
+            </div>
+
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Backpat Type</label>
               <select 
