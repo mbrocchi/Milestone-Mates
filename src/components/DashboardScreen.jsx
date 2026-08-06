@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Gift, CheckCircle2, Circle, Star, ThumbsUp, Rocket, Pencil } from 'lucide-react';
+import { Plus, Gift, CheckCircle2, Circle, Star, ThumbsUp, Rocket, Pencil, Settings } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { motion, AnimatePresence } from 'framer-motion';
 import CreateTaskModal from './CreateTaskModal';
 import SendBackpatModal from './SendBackpatModal';
 import EditGoalModal from './EditGoalModal';
 import UserTasksModal from './UserTasksModal';
+import SettingsModal from './SettingsModal';
 
 //const API_URL = 'http://localhost:3001/api';
 const API_URL = '/api';
@@ -16,6 +17,7 @@ export default function DashboardScreen() {
   const [taskModalAssignee, setTaskModalAssignee] = useState('sarah');
   const [showBackpatModal, setShowBackpatModal] = useState(false);
   const [showEditGoalModal, setShowEditGoalModal] = useState(false);
+  const [showSettingsModal, setShowSettingsModal] = useState(false);
   const [selectedUserTasks, setSelectedUserTasks] = useState(null); // 'sarah' or 'dave'
 
   const fetchData = async () => {
@@ -66,6 +68,12 @@ export default function DashboardScreen() {
         <h1 className="text-3xl font-black text-white drop-shadow-md tracking-wide z-10 relative" style={{ WebkitTextStroke: '1px #FF8800' }}>
           MILESTONEMATES
         </h1>
+        <button
+          onClick={() => setShowSettingsModal(true)}
+          className="absolute top-4 right-4 z-20 text-white/90 hover:text-white bg-white/10 hover:bg-white/20 p-2 rounded-full transition"
+        >
+          <Settings size={22} />
+        </button>
         <div className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-20 bg-[url('https://www.transparenttextures.com/patterns/comic-bg.png')]"></div>
       </div>
 
@@ -256,12 +264,21 @@ export default function DashboardScreen() {
           />
         )}
         {showBackpatModal && (
-          <SendBackpatModal 
-            onClose={() => setShowBackpatModal(false)} 
+          <SendBackpatModal
+            onClose={() => setShowBackpatModal(false)}
             onSave={() => {
               setShowBackpatModal(false);
               fetchData();
-            }} 
+            }}
+          />
+        )}
+        {showSettingsModal && (
+          <SettingsModal
+            onClose={() => setShowSettingsModal(false)}
+            onReset={() => {
+              setShowSettingsModal(false);
+              fetchData();
+            }}
           />
         )}
       </AnimatePresence>

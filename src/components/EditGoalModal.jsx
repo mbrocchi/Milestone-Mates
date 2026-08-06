@@ -13,7 +13,11 @@ export default function EditGoalModal({ activeGoal, onClose, onSave }) {
     { name: 'Family Holiday', icon: '✈️' },
     { name: 'New Car', icon: '🚗' },
     { name: 'House Deposit', icon: '🏡' },
-    { name: 'Home Upgrade', icon: '🛋️' }
+    { name: 'Home Upgrade', icon: '🛋️' },
+    { name: 'Date Night Fund', icon: '💕' },
+    { name: "Couple's Retreat", icon: '🌱' },
+    { name: 'Family Bonding Trip', icon: '🤝' },
+    { name: 'Family Reunion', icon: '👨‍👩‍👧‍👦' }
   ];
 
   const handleSubmit = async (e) => {

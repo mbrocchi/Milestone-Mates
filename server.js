@@ -195,6 +195,14 @@ app.put('/api/goals/active', (req, res) => {
   res.json(goals[0]);
 });
 
+// Reset all entered data (tasks, goal, activity feed) back to empty
+app.post('/api/reset', (req, res) => {
+  writeJSON('tasks.json', []);
+  writeJSON('goals.json', []);
+  writeJSON('backpats.json', []);
+  res.json({ success: true });
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
