@@ -11,6 +11,10 @@ const getCategoryIcon = (category) => {
     case 'Home': return '🔨';
     case 'Family Shared Goal': return '🎯';
     case 'Personal': return '💡';
+    case 'Acts of Love': return '❤️';
+    case 'Relational Growth': return '🌱';
+    case 'Bonding': return '🤝';
+    case 'Family Connection': return '👨‍👩‍👧‍👦';
     default: return '✅';
   }
 };

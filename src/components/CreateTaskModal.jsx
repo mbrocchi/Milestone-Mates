@@ -14,7 +14,11 @@ export default function CreateTaskModal({ activeGoal, defaultAssignee = 'sarah',
     { name: 'Fitness', icon: '🏋️‍♂️' },
     { name: 'Home', icon: '🔨' },
     { name: 'Family Shared Goal', icon: '🎯' },
-    { name: 'Personal', icon: '💡' }
+    { name: 'Personal', icon: '💡' },
+    { name: 'Acts of Love', icon: '❤️' },
+    { name: 'Relational Growth', icon: '🌱' },
+    { name: 'Bonding', icon: '🤝' },
+    { name: 'Family Connection', icon: '👨‍👩‍👧‍👦' }
   ];
 
   const handleSubmit = async (e) => {

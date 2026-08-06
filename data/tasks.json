@@ -11,14 +11,14 @@
     "assignee": "sarah",
     "title": "Daily Workout",
     "category": "Fitness",
-    "completed": false
+    "completed": true
   },
   {
     "id": 1785391011385,
     "assignee": "dave",
     "title": "Pay Phone Bills",
     "category": "Home",
-    "completed": false
+    "completed": true
   },
   {
     "id": 1785391092448,
@@ -27,5 +27,54 @@
     "category": "Family Shared Goal",
     "completed": true,
     "contributionValue": 5
+  },
+  {
+    "id": 1785975846135,
+    "assignee": "sarah",
+    "title": "Write a love note",
+    "category": "Acts of Love",
+    "completed": false
+  },
+  {
+    "id": 1785975852085,
+    "assignee": "dave",
+    "title": "Read story to charlie",
+    "category": "Bonding",
+    "completed": true
+  },
+  {
+    "id": 1785975936605,
+    "assignee": "sarah",
+    "title": "Buy flower",
+    "category": "Relational Growth",
+    "completed": false
+  },
+  {
+    "id": 1785975960257,
+    "assignee": "dave",
+    "title": "Buy flowers",
+    "category": "Relational Growth",
+    "completed": true
+  },
+  {
+    "id": 1785975987784,
+    "assignee": "dave",
+    "title": "Read story to tom",
+    "category": "Family Connection",
+    "completed": true
+  },
+  {
+    "id": 1785976023075,
+    "assignee": "dave",
+    "title": "Connect with family",
+    "category": "Bonding",
+    "completed": true
+  },
+  {
+    "id": 1785976084008,
+    "assignee": "dave",
+    "title": "Send flowers to sarah",
+    "category": "Acts of Love",
+    "completed": true
   }
 ]
